@@ -5,40 +5,40 @@ import javax.persistence.Entity;
 @Entity
 public class Vehicle extends BaseEntity {
 
-    public int Year;
-    public String Make;
-    public String Model;
+    public int year;
+    public String make;
+    public String model;
 
     public Vehicle() {
     }
 
     public Vehicle(int year, String make, String model) {
-        Year = year;
-        Make = make;
-        Model = model;
+        this.year = year;
+        this.make = make;
+        this.model = model;
     }
 
     public int getYear() {
-        return Year;
+        return year;
     }
 
     public void setYear(int year) {
-        Year = year;
+        this.year = year;
     }
 
     public String getMake() {
-        return Make;
+        return make;
     }
 
     public void setMake(String make) {
-        Make = make;
+        this.make = make;
     }
 
     public String getModel() {
-        return Model;
+        return model;
     }
 
     public void setModel(String model) {
-        Model = model;
+        this.model = model;
     }
 }
