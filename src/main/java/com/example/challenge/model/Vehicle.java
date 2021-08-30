@@ -1,12 +1,20 @@
 package com.example.challenge.model;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Vehicle extends BaseEntity {
-
+    @Min(1950)
+    @Max(2050)
     public int year;
+
+    @NotNull
     public String make;
+
+    @NotNull
     public String model;
 
     public Vehicle() {

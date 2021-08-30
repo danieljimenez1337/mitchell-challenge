@@ -5,6 +5,8 @@ import com.example.challenge.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +26,7 @@ public class VehicleController {
     }
 
     @PostMapping
-    public Vehicle createVehicle(@RequestBody Vehicle vehicle){
+    public Vehicle createVehicle(@Valid @RequestBody Vehicle vehicle){
         return vehicleService.create(vehicle);
     }
 
@@ -34,7 +36,7 @@ public class VehicleController {
     }
 
     @PutMapping
-    public Vehicle updateVehicle(@RequestBody Vehicle vehicle){
+    public Vehicle updateVehicle(@Valid @RequestBody Vehicle vehicle){
         return vehicleService.update(vehicle);
     }
 }
