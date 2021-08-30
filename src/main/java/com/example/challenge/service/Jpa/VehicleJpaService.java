@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehicleJpaService implements VehicleService {
@@ -20,6 +21,13 @@ public class VehicleJpaService implements VehicleService {
 
     @Override
     public Vehicle create(Vehicle object) {
+
+        //removes id
+        Vehicle vehicle = new Vehicle(
+                object.year,
+                object.make,
+                object.model
+        );
         return vehicleRepository.save(object);
     }
 
@@ -29,17 +37,20 @@ public class VehicleJpaService implements VehicleService {
     }
 
     @Override
-    public Vehicle findById(Integer integer) {
-        return vehicleRepository.findById(integer).orElse(null);
+    public Optional<Vehicle> findById(Integer integer) {
+        return vehicleRepository.findById(integer);
     }
 
     @Override
-    public Vehicle update(Vehicle object) {
-        return vehicleRepository.save(object);
+    public Optional<Vehicle> update(Vehicle object) {
+        return vehicleRepository.findById(object.id)
+                .map(old -> vehicleRepository.save(object));
     }
 
     @Override
     public void deleteById(Integer integer) {
-        vehicleRepository.deleteById(integer);
+        if (vehicleRepository.findById(integer).isPresent()){
+            vehicleRepository.deleteById(integer);
+        }
     }
 }

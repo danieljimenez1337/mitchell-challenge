@@ -3,10 +3,13 @@ package com.example.challenge.controllers;
 import com.example.challenge.model.Vehicle;
 import com.example.challenge.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -21,22 +24,33 @@ public class VehicleController {
     }
 
     @GetMapping
-    public List<Vehicle> getVehicles(){
-        return vehicleService.findAll();
+    public ResponseEntity<List<Vehicle>> getVehicles(){
+        return ResponseEntity.ok().body(vehicleService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Vehicle> getVehicles(@PathVariable("id") int id){
+        return ResponseEntity.of(vehicleService.findById(id));
     }
 
     @PostMapping
-    public Vehicle createVehicle(@Valid @RequestBody Vehicle vehicle){
-        return vehicleService.create(vehicle);
+    public ResponseEntity<Vehicle> createVehicle(@Valid @RequestBody Vehicle vehicle){
+        Vehicle createdVehicle = vehicleService.create(vehicle);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(createdVehicle.getId())
+                .toUri();
+        return ResponseEntity.created(location).body(createdVehicle);
     }
 
     @DeleteMapping(path = "{vehicleId}")
-    public void deleteVehicle(@PathVariable("vehicleId") int id){
+    public ResponseEntity<Vehicle> deleteVehicle(@PathVariable("vehicleId") int id){
         vehicleService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping
-    public Vehicle updateVehicle(@Valid @RequestBody Vehicle vehicle){
-        return vehicleService.update(vehicle);
+    public ResponseEntity<Vehicle> updateVehicle(@Valid @RequestBody Vehicle vehicle){
+        return ResponseEntity.of(vehicleService.update(vehicle));
     }
 }
