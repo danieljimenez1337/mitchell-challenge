@@ -9,13 +9,13 @@ import javax.validation.constraints.NotNull;
 public class Vehicle extends BaseEntity {
     @Min(1950)
     @Max(2050)
-    public int year;
+    private int year;
 
     @NotNull
-    public String make;
+    private String make;
 
     @NotNull
-    public String model;
+    private String model;
 
     public Vehicle() {
     }
