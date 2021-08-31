@@ -34,7 +34,7 @@ class VehicleControllerTest {
     List<Vehicle> vehicleList;
     MockMvc mockMvc;
 
-    final String PATH = "/api/v1/vehicle";
+    final String PATH = "/api/v1/vehicles";
 
     @BeforeEach
     void setUp() {
