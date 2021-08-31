@@ -29,7 +29,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Vehicle> getVehicles(@PathVariable("id") int id){
+    public ResponseEntity<Vehicle> getVehiclesById(@PathVariable("id") int id){
         return ResponseEntity.of(vehicleService.findById(id));
     }
 
