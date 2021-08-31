@@ -24,11 +24,11 @@ public class VehicleJpaService implements VehicleService {
 
         //removes id
         Vehicle vehicle = new Vehicle(
-                object.year,
-                object.make,
-                object.model
+                object.getYear(),
+                object.getMake(),
+                object.getModel()
         );
-        return vehicleRepository.save(object);
+        return vehicleRepository.save(vehicle);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class VehicleJpaService implements VehicleService {
 
     @Override
     public Optional<Vehicle> update(Vehicle object) {
-        return vehicleRepository.findById(object.id)
+        return vehicleRepository.findById(object.getId())
                 .map(old -> vehicleRepository.save(object));
     }
 
